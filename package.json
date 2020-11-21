@@ -1,0 +1,11 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "一个webgl demo项目",
+  "main": "demo.html",
+  "scripts": {
+    "start": "node demo.js"
+  },
+  "author": "wuslan",
+  "license": "ISC"
+}
