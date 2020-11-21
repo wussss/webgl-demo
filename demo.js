@@ -1,6 +1,6 @@
 var canvas = document.getElementById('canvas')
-canvas.width = 100
-canvas.height = 100
+canvas.width = 200
+canvas.height = 200
 var ctx = canvas.getContext('webgl')//1、创建webgl画笔，可以调用webgl的API
 
 var program = ctx.createProgram()//2、定义program,用于绑定顶点着色器和片元着色器
@@ -15,7 +15,7 @@ var VSHADER_SOURCE = `
 
 var FSHADER_SOURCE = `
    void main(){
-    gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+    gl_FragColor = vec4(0.84, 0.74, 0.88, 1);
    }
 `
 
@@ -27,24 +27,29 @@ function createShader(context, sourceCode, type) {
     return shader
 }
 
-// define vertex shader
 var vertexShader = createShader(ctx, VSHADER_SOURCE, ctx.VERTEX_SHADER)
-// define frament shader
 var fragmentShader = createShader(ctx, FSHADER_SOURCE, ctx.FRAGMENT_SHADER)
 
 //4、着色器与program绑定
 ctx.attachShader(program, vertexShader)
 ctx.attachShader(program, fragmentShader)
 //5、program与ctx绑定
-ctx.linkProgram(program)
+ctx.linkProgram(program)/*  */
 ctx.useProgram(program)
 ctx.program = program
 
 //6、初始化一个vertex buffer,将点位置传到vertex buffer中，最终传到vertexShader中
 function initVertexBuffers(gl) {
-    var vertices = new Float32Array([0, 0.5, 0, 0, 0.5, 0])//在画布中的顶点坐标的数组
+    var vertices = new Float32Array([
+        0, 1, 0, -1, 1, 0,
+        0, 1, 0, -1, -1, 0,
+        -0.5, 1, -0.5, 0.5, -1, 0.5,
+        0.5, 1, 0.5, 0.5, 1, 0.5,
+        -0.5, -1, -0.5, -0.5, -1, -0.5,
+        0.5, -1, 0.5, -0.5, 1, -0.5,
+    ])//在画布中的顶点坐标的数组，(0,0)在画布正中间,(0,1)在中间最上方
     var vertexBuffer = gl.createBuffer()
-    var n = 3;
+    var n = vertices.length / 2;
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
     //将数据写入buffer
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
@@ -58,7 +63,7 @@ function initVertexBuffers(gl) {
 
 // 7、绘制
 //clear时设置背景色
-ctx.clearColor(0, 1, 0, 1)
+ctx.clearColor(1,1,1,1);
 
 var n = initVertexBuffers(ctx)
 function draw() {
