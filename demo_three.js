@@ -18,7 +18,8 @@ heartShape.bezierCurveTo(x + 120, y + 154, x + 160, y + 110, x + 160, y + 70);
 heartShape.bezierCurveTo(x + 160, y + 70, x + 160, y, x + 100, y);
 heartShape.bezierCurveTo(x + 70, y, x + 50, y + 50, x + 50, y + 50);
 
-var geometry = new THREE.ShapeGeometry(heartShape);
+// var geometry=new THREE.ShapeGeometry(heartShape);
+var geometry = new THREE.TorusKnotGeometry(50, 10, 100, 16);
 var material = new THREE.MeshBasicMaterial({
     color: 0xff0000,
     side: THREE.DoubleSide
@@ -47,7 +48,7 @@ function animate() {
 }
 function render() {
     animate()
-    mesh.rotation.set(0, currentAngle, 0)//绕Y轴转动
+    mesh.rotation.set(currentAngle, currentAngle, currentAngle)//绕Y轴转动
     renderer.render(scene, camera)
     requestAnimationFrame(render)
 }
