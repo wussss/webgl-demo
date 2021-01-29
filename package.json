@@ -4,7 +4,7 @@
   "description": "一个webgl demo项目",
   "main": "demo.html",
   "scripts": {
-    "start": "node demo.js"
+    "start": "hs"
   },
   "author": "wuslan",
   "license": "ISC"
